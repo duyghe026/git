@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<style type="text/css">
+		table {
+		  border-spacing: 2;
+		  border-collapse: collapse;
+		  background: white;
+		  border-radius: 10px;
+		  overflow: hidden;
+		  width: 100%;
+		  margin: 0 auto;
+		  position: relative;
+		}
+		table * {
+		  position: relative;
+		}
+		table td, table th {
+		  padding-left: 8px;
+		}
+		table thead tr {
+		  height: 60px;
+		  background: #36304a;
+		  color:white;
+		}
+		table tbody tr {
+		  height: 50px;
+		}
+		table tbody tr:last-child {
+		  border: 0;
+		}
+		table td, table th {
+		  text-align: left;
+		}
+		table td.l, table th.l {
+		  text-align: right;
+		}
+		table td.c, table th.c {
+		  text-align: center;
+		}
+		table td.r, table th.r {
+		  text-align: center;
+		}
+
+
+		.table100-head th{
+		  font-family: OpenSans-Regular;
+		  font-size: 18px;
+		  color: #fff;
+		  line-height: 1.2;
+		  font-weight: unset;
+		}
+
+		tbody tr:nth-child(even) {
+		  background-color: #f5f5f5;
+		}
+
+		tbody tr {
+		  font-family: OpenSans-Regular;
+		  font-size: 20px;
+		  color: #808080;
+		  line-height: 1.2;
+		  font-weight: unset;
+		}
+
+		h1 {
+			text-align: center;
+			font-family: Arial;
+			font-style: italic;
+			font-weight: 800;
+			white-space: nowrap;
+			text-transform: uppercase;
+			color:#36304a;
+			text-shadow: 0px 2px 3px #555;
+    		position: relative;
+		}
+
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		/* Button used to open the contact form - fixed at the bottom of the page */
+		.open-button {
+			background-color: #555;
+			color: white;
+			padding: 16px 20px;
+			border: none;
+			cursor: pointer;
+			opacity: 0.8;
+			position: fixed;
+			bottom: 23px;
+			right: 28px;
+			width: 280px;
+		}
+
+		/* The popup form - hidden by default */
+		.form-popup {
+			display: none;
+			position: fixed;
+			bottom: 0;
+			right: 15px;
+			border-radius: 30px;
+			border: 3px solid gray;
+			z-index: 9;
+		}
+
+		/* Add styles to the form container */
+		.form-container {
+			max-width: 300px;
+			padding: 10px;
+			background-color: white;
+		}
+
+		/* Full-width input fields */
+		.form-container input[type=text],
+		.form-container input[type=password] {
+			width: 100%;
+			padding: 15px;
+			margin: 5px 0 22px 0;
+			border: none;
+			background: #f1f1f1;
+		}
+
+		/* When the inputs get focus, do something */
+		.form-container input[type=text]:focus,
+		.form-container input[type=password]:focus {
+			background-color: #ddd;
+			outline: none;
+		}
+
+		/* Set a style for the submit/login button */
+		.form-container .btn {
+			background-color:rgb(16, 50, 51);
+			border-radius: 10px;
+			color: white;
+			padding: 16px 20px;
+			border: none;
+			cursor: pointer;
+			width: 100%;
+			margin-bottom: 10px;
+			opacity: 0.8;
+		}
+
+		/* Add a red background color to the cancel button */
+		.form-container .cancel {
+			background-color:rgb(16, 50, 51);
+		}
+
+		/* Add some hover effects to buttons */
+		.form-container .btn:hover,
+		.open-button:hover {
+			opacity: 1;
+			background-color:black;
+		}
+	</style>
+	<meta charset="utf-8">
+	<title>THÔNG BÁO THỜI GIAN SỬ DỤNG MÁY TÍNH</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://momentjs.com/downloads/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/vast-engineering/jquery-popup-overlay@2/jquery.popupoverlay.min.js"></script>
+</head>
+
+<body onload="startTime()">
+	<h1>THÔNG BÁO THỜI GIAN SỬ DỤNG MÁY TÍNH</h1>
+	<table class="table table-hover" id="myTable" >
+			<tr>
+				<th style="background: #555; color: #ddd;">Ngày</th>
+				<th style="background: #555; color: #ddd;">Giờ Bắt Đầu</th>
+<!-- 				<th onload="startTime()" style="background: #555; color: #ddd;">Giờ Kết Thúc</th> -->
+				<th id="" style="background: #555; color: #ddd;">Thời Gian Sử Dụng</th>
+				<th style="background: #555; color: #ddd;">Trạng Thái</th>
+				<th style="background: #555; color: #ddd;">Chức năng</th>
+				<input id="dataHidden" type="hidden" value="" >
+				<input id="end" type="hidden" value="">
+				<input id="total" type="hidden" value="">
+			</tr>
+
+	</table>
+		<div class="form-popup" id="myForm">
+		<form  method="get" class="form-container">
+			<h1>Lời nhắn</h1>
+				<textarea name="" id="message1" cols="37" rows="10"></textarea>
+				<button type="submit" onclick="notify()" class="btn">Gửi</button>
+				<button type="button" class="btn cancel" onclick="closeForm()">Đóng</button>
+		</form>
+	</div>
+	<hr>
+	<h2>CÀI ĐẶT THỜI GIAN SỬ DỤNG MÁY TÍNH</h2>
+	<form action="/setTime" method="post">
+		<input size="5" id="hours" name="hours" type="text" placeholder="Hours" value=""/> :
+		<input size="5" id="minutes" name="minutes" type="text" placeholder="Minute" value=""/> :
+		<input size="5" id="seconds" name="seconds" type="text" placeholder="Second" value="" />
+		<th> <input class="button" type="submit" value="Submit" /> </th>
+	</form>
+</body>
+
+<script>
+	function insertRowTable(param1, param2, param3, param4, param5) {
+		var table = document.getElementById("myTable");
+		var row = table.insertRow();
+
+		//date
+		var cell1 = row.insertCell(0);
+		//time start
+		var cell2 = row.insertCell(1);
+		// time end
+		var cell3 = row.insertCell(2);
+		// total time
+		var cell4 = row.insertCell(3);
+		// status
+		var cell5 = row.insertCell(4);
+		// buttom
+		var cell6 = row.insertCell(5);
+
+		cell1.innerHTML = param1;
+		cell2.innerHTML = param2;
+
+		if (param3.trim() === "null") {
+			param3 = "<p id='runningTime' style='margin-top: 0px;margin-bottom: 0px;'></p>";
+
+		}
+		//cell3.innerHTML = param3;
+		if (param5.trim() != "end") {
+			param4 = "<p id='totalTime' style='margin-top: 0px;margin-bottom: 0px;'></p>";
+
+			var dateParts = param1.split("/");
+			document.getElementById('dataHidden').value = dateParts[1] + "/" + dateParts[0] + "/" + dateParts[2] + " " + param2;
+		}
+
+		cell3.innerHTML = param4;
+
+		if (param5.trim() == "end") {
+			param5 = "Kết thúc";
+		} else param5 = "Đang hoạt động";
+		cell4.innerHTML = param5;
+
+		if (param5.trim()!="Đang hoạt động") {
+			var query = '<button type="button" disabled>Nhắc nhở</button>' + '<button type="button"  disabled>Tắt máy</button>';
+		} else {
+
+			var query = '<button type="button"  onclick="openForm()">Nhắc nhở</button>' + '<button type="button" id="#clickRow" onclick="shutDown()">Tắt máy</button>';
+
+		}
+		cell5.innerHTML = query;
+	}
+	$.get('data', {}, function (data) {
+		for (i in data) {
+			var arr = data[i].toString().split(" ");
+			insertRowTable(arr[0], arr[1], arr[2], arr[3], arr[4]);
+		}
+	});
+
+	
+	function shutDown(){
+		$.get('shutDown', {}, function (data) {
+			alert("Completed!");
+		});
+		var end = document.getElementById("end").value;
+		var total = document.getElementById("total").value;
+		var rq = 'end?endTime=' + end.trim() + '&totalTime=' + total.trim();
+		$.get(rq, {}, function (data)
+		{
+			location.reload();
+		});
+		
+	};
+
+	function notify(){
+		var message=document.getElementById("message1").value;
+		$.post('notify', {notifyStr: message}, function (data) {
+			alert(message);
+			document.getElementById("myForm").style.display = "none";
+		});
+	}
+
+	
+
+</script>
+<script>
+		$.get('dataSchedual', {}, function (data) {
+		// for (i in data) {
+		// 	var arr = data[i].toString().split(" ");
+		// 	insertRowTable(arr[0], arr[1], arr[2], arr[3], arr[4]);
+		// }
+		document.getElementById("hours").value = data[0];
+		document.getElementById("minutes").value = data[1];
+		document.getElementById("seconds").value = data[2];
+	});
+</script>
+<!-- start tile -->
+<script>
+	function startTime() {
+		var today = new Date();
+		var h = today.getHours()+7;
+		var m = today.getMinutes();
+		var s = today.getSeconds();
+		m = checkTime(m);
+		s = checkTime(s);
+		document.getElementById('runningTime').innerHTML =
+			h + ":" + m + ":" + s;
+		document.getElementById('end').value = h + ":" + m + ":" + s;
+		var t = setTimeout(startTime, 500);
+	}
+	function checkTime(i) {
+		if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
+		return i;
+	}
+</script>
+<script>
+	// Set the date we're counting down to
+	// Update the count down every 1 second
+	var x = setInterval(function () {
+		// Get today's date and time
+		var now = new Date().getTime();
+		//document.getElementById('dataHidden').value
+		var time = new Date(document.getElementById('dataHidden').value).getTime();
+		//var a = time.split(':'); // split it at the colons
+
+		// Find the distance between now and the count down date
+		var distance = now - time;
+		// Time calculations for days, hours, minutes and seconds
+		var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+		var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+		var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+
+		if( minutes < 10) minutes = "0" + minutes;
+		if( seconds < 10) seconds = "0" + seconds;
+		console.log(seconds);
+		console.log(document.getElementById("seconds").value);
+		document.getElementById("totalTime").innerHTML = hours + "h "+ minutes + "m " + seconds + "s ";
+		document.getElementById("total").value =  hours + "h:"+ minutes + "m:" + seconds + "s";
+		
+		if (  hours == document.getElementById("hours").value 	
+		   && minutes === document.getElementById("minutes").value
+			&& seconds === document.getElementById("seconds").value ) {
+			document.getElementById("clickRow").click();
+		}
+	}, 1000);
+
+</script>
+<script>
+	function openForm() {
+		document.getElementById("myForm").style.display = "block";
+	}
+
+	function closeForm() {
+		document.getElementById("myForm").style.display = "none";
+	}
+</script>
+<!-- <script>	
+	$(document).ready(function ()
+	 {
+		$("clickRow").click(function () {
+			var end = document.getElementById("end").value;
+			var total = document.getElementById("total").value;
+			var rq = 'end?endTime=' + end.trim() + '&totalTime=' + total.trim();
+			$.get(rq, {}, function (data) {
+				location.reload();
+			});
+		});
+	});
+</script> -->
+
+
+</html>

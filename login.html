@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+    <style>
+        button {
+            background: #000;
+            color: #fff;
+            text-align: center;
+            font-weight: bold;
+            padding: 10px 30px;
+            border-radius: 3px;
+        }
+
+        #overlay {
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+        }
+
+        #popup {
+            max-width: 600px;
+            width: 80%;
+            max-height: 300px;
+            height: 80%;
+            padding: 20px;
+            position: relative;
+            background: #fff;
+            margin: 20px auto;
+        }
+
+        #close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            color: #000;
+        } 
+    </style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <head>
+    <body>
+        <div id="overlay">
+            <div id="popup">
+                <label style="margin-left: 240px;"><b>ĐĂNG NHẬP</b></label>
+                <form action="/login" method="post">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Tài khoản</label>
+                      <input type="text" class="form-control" id="exampleInputEmail1" name="user" aria-describedby="emailHelp" placeholder="">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Mật khẩu</label>
+                      <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                  </form>
+            </div>
+        </div>
+<body>
+
+    <script>
+         
+        $(document).ready(function () {
+            $('#overlay').fadeIn(300);
+        });
+    </script>
+
+</html>
