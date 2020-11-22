@@ -7,27 +7,39 @@ const router = express.Router();
 var fs = require('fs');
 var prepend = require('prepend');
 const accountSid = 'ACc338df292a27eb23e34c65600bef9abf';
-const authToken = 'dc75be38bd5acfd08da1c1bf852dd3d3';
+const authToken = 'c4c6c20cc6d8db9fab2b1c48794e69ca';
+
 const client = require('twilio')(accountSid, authToken);
 const bodyParser = require('body-parser');
 var socketIO = require('socket.io')
 const { RSA_NO_PADDING } = require('constants');
 
 var clientSocket;
+var username="admin";
+var password="admin";
+var check =0;
 
+function validateAccount(user,password){
+  if (user === username && password === password){
+    return 1;
+  }
+  return 0;
+}
 router.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/login.html'));
   //__dirname : It will resolve to your project folder.
 });
 router.get('/index', function (req, res) {
-  res.sendFile(path.join(__dirname + '/index.html'));
-  //__dirname : It will resolve to your project folder.
+ if (check === 1) res.sendFile(path.join(__dirname + '/index.html'));
+ else  res.sendFile(path.join(__dirname + '/login.html'));
+  
 });
 
 router.post('/login', function (req, res) {
-    if (req.body.user.trim() === 'admin' && req.body.password.trim() === 'admin'){
+    if (validateAccount(req.body.user.trim(), req.body.password.trim()) === 1){
       //res.sendFile(path.join(__dirname + '/index.html'));
       res.redirect('/index');
+      check = 1;
     } else {
       res.sendFile(path.join(__dirname + '/login.html'));
     }
@@ -49,7 +61,7 @@ router.get('/start', function (req, res) {
   var month =  new Date().getMonth() + 1;
   var year =  new Date().getFullYear();
   var date = day + "/" + month + "/" + year;
-  var hours = new Date().getHours()+7;
+  var hours = new Date().getHours();
   var minutes = new Date().getMinutes();
   var seconds = new Date().getSeconds();
   if (minutes < 10) minutes = "0" + minutes;
@@ -102,7 +114,7 @@ app.get('/sms', (req, res) => {
   client.messages
   .create({body: '[CẢNH BÁO] Máy tính sử dụng đã vượt quá thời gian quy định!', from: '+12543646231', to: '+84588819322'})
   .then(message => console.log(message.sid));
-  res.redirect('/index');
+ // res.redirect('/index');
 });
 
 app.post('/sms', (req, res) => {
