@@ -126,10 +126,10 @@ app.post('/sms', (req, res) => {
 });
 
 router.post('/setTime', function (req, res) {
-  if(req.body.hours < 10) req.body.hours= "0" +req.body.hours;
-  if(req.body.minutes < 10) req.body.minutes = "0" + req.body.minutes;
-  if(req.body.seconds < 10) req.body.seconds = "0" + req.body.seconds;
-  var str = req.body.hours + ":" + req.body.minutes + ":" + req.body.seconds;
+ // if(req.body.hours < 10) req.body.hours= "0" +req.body.hours;
+ // if(req.body.minutes < 10) req.body.minutes = "0" + req.body.minutes;
+ // if(req.body.seconds < 10) req.body.seconds = "0" + req.body.seconds;
+ // var str = req.body.hours + ":" + req.body.minutes + ":" + req.body.seconds;
   fs.writeFileSync('schedual.txt',str);
   res.redirect('/index');
 });

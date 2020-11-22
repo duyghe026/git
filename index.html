@@ -344,16 +344,17 @@
 		var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 		var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
+		
 		if (hours < 10) hours = "0" + hours;
 		if (minutes < 10) minutes = "0" + minutes;
 		if (seconds < 10) seconds = "0" + seconds;
 		document.getElementById("totalTime").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
 		document.getElementById("total").value = hours + "h:" + minutes + "m:" + seconds + "s";
-
+		var cp1 = parseInt(hours*60+minutes*60+ seconds);
+		var cp2= parseInt(document.getElementById("hours").value*60+document.getElementById("minutes").value*60+document.getElementById("seconds").value);
+		console.log(cp1 + " " + cp2);
 		//console.log( document.getElementById("hours").value + " " + document.getElementById("minutes").value + " " + seconds == document.getElementById("seconds").value));
-		if (hours == document.getElementById("hours").value
-			&& minutes == document.getElementById("minutes").value
-			&& seconds == document.getElementById("seconds").value) {
+		if (cp1==cp2) {
 			$.get('sms', {}, function (data) {		
 				// send sms warning			
 			});
