@@ -6,28 +6,43 @@ const path = require('path');
 const router = express.Router();
 var fs = require('fs');
 var prepend = require('prepend');
+//const accountSid = 'ACc338df292a27eb23e34c65600bef9abf';
+//const authToken = '80f0cfd344488bec7bd92d323ea0ee98';
 const accountSid = process.env.accountSid;
 const authToken = process.env.authToken;
+
+
 const client = require('twilio')(accountSid, authToken);
 const bodyParser = require('body-parser');
 var socketIO = require('socket.io')
 const { RSA_NO_PADDING } = require('constants');
 
 var clientSocket;
+var username="admin";
+var password="admin";
+var check =0;
 
+function validateAccount(user,password){
+  if (user === username && password === password){
+    return 1;
+  }
+  return 0;
+}
 router.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/login.html'));
   //__dirname : It will resolve to your project folder.
 });
 router.get('/index', function (req, res) {
-  res.sendFile(path.join(__dirname + '/index.html'));
-  //__dirname : It will resolve to your project folder.
+ if (check === 1) res.sendFile(path.join(__dirname + '/index.html'));
+ else  res.sendFile(path.join(__dirname + '/login.html'));
+  
 });
 
 router.post('/login', function (req, res) {
-    if (req.body.user.trim() === 'admin' && req.body.password.trim() === 'admin'){
+    if (validateAccount(req.body.user.trim(), req.body.password.trim()) === 1){
       //res.sendFile(path.join(__dirname + '/index.html'));
       res.redirect('/index');
+      check = 1;
     } else {
       res.sendFile(path.join(__dirname + '/login.html'));
     }
@@ -49,7 +64,7 @@ router.get('/start', function (req, res) {
   var month =  new Date().getMonth() + 1;
   var year =  new Date().getFullYear();
   var date = day + "/" + month + "/" + year;
-  var hours = new Date().getHours()+7;
+  var hours = new Date().getHours();
   var minutes = new Date().getMinutes();
   var seconds = new Date().getSeconds();
   if (minutes < 10) minutes = "0" + minutes;
@@ -68,7 +83,6 @@ router.get('/start', function (req, res) {
 });
 
 router.get('/end', function (req, res) {
-
   var endTime = req.query.endTime;
   var totalTime = req.query.totalTime;
   var data = fs.readFileSync('data.txt');
@@ -115,10 +129,10 @@ app.post('/sms', (req, res) => {
 });
 
 router.post('/setTime', function (req, res) {
-  if(req.body.hours < 10) req.body.hours= "0" +req.body.hours;
-  if(req.body.minutes < 10) req.body.minutes = "0" + req.body.minutes;
-  if(req.body.seconds < 10) req.body.seconds = "0" + req.body.seconds;
-  var str = req.body.hours + ":" + req.body.minutes + ":" + req.body.seconds;
+ // if(req.body.hours < 10) req.body.hours= "0" +req.body.hours;
+ // if(req.body.minutes < 10) req.body.minutes = "0" + req.body.minutes;
+ // if(req.body.seconds < 10) req.body.seconds = "0" + req.body.seconds;
+ // var str = req.body.hours + ":" + req.body.minutes + ":" + req.body.seconds;
   fs.writeFileSync('schedual.txt',str);
   res.redirect('/index');
 });
@@ -132,7 +146,6 @@ console.log('Running at Port 1337');
 
 io.on('connection', function (socket) {
   clientSocket=socket;
-  console.log("Hello word");
   // socket.emit('greeting-from-server', {
   //     greeting: 'Hello Client'
   // });
