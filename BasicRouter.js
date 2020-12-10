@@ -6,8 +6,8 @@ const path = require('path');
 const router = express.Router();
 var fs = require('fs');
 var prepend = require('prepend');
-const accountSid = 'ACc338df292a27eb23e34c65600bef9abf';
-const authToken = 'dc75be38bd5acfd08da1c1bf852dd3d3';
+const accountSid = process.env.accountSid;
+const authToken = process.env.authToken;
 const client = require('twilio')(accountSid, authToken);
 const bodyParser = require('body-parser');
 var socketIO = require('socket.io')
@@ -106,11 +106,12 @@ app.get('/sms', (req, res) => {
 });
 
 app.post('/sms', (req, res) => {
+  //io.emit("end", "HELLO");
   const twiml = new MessagingResponse();
   twiml.message('The Robots are coming! Head for the hills!');
-  res.writeHead(200, {'Content-Type': 'text/xml'});
-  console.log(rq.body);
-  res.end(twiml.toString());
+  console.log(req.body);
+  io.emit("end", "HELLO");
+  res.redirect('/index');
 });
 
 router.post('/setTime', function (req, res) {
