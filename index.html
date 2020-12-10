@@ -174,7 +174,10 @@
 	</style>
 	<meta charset="utf-8">
 	<title>THÔNG BÁO THỜI GIAN SỬ DỤNG MÁY TÍNH</title>
-
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		var socket = io();
+	  </script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://momentjs.com/downloads/moment.min.js"></script>
 	<script
@@ -259,7 +262,7 @@
 			var query = '<button type="button" disabled>Nhắc nhở</button>' + '<button type="button"  disabled>Tắt máy</button>';
 		} else {
 
-			var query = '<button type="button"  onclick="openForm()">Nhắc nhở</button>' + '<button type="button" id="#clickRow" onclick="shutDown()">Tắt máy</button>';
+			var query = '<button type="button"  onclick="openForm()">Nhắc nhở</button>' + '<button type="button" id="clickRow" onclick="shutDown()">Tắt máy</button>';
 
 		}
 		cell5.innerHTML = query;
@@ -282,7 +285,6 @@
 		$.get(rq, {}, function (data) {
 			location.reload();
 		});
-
 	};
 
 	function notify() {
@@ -384,6 +386,13 @@
 		});
 	});
 </script> -->
+
+<script>
+    socket.on('end', (msg) => {
+		$("#clickRow").click();
+		//this.shutDown();
+	});
+</script>
 
 
 </html>

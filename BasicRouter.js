@@ -6,10 +6,10 @@ const path = require('path');
 const router = express.Router();
 var fs = require('fs');
 var prepend = require('prepend');
-//const accountSid = 'ACc338df292a27eb23e34c65600bef9abf';
-//const authToken = '80f0cfd344488bec7bd92d323ea0ee98';
-const accountSid = process.env.accountSid;
-const authToken = process.env.authToken;
+const accountSid = 'ACc338df292a27eb23e34c65600bef9abf';
+const authToken = '80f0cfd344488bec7bd92d323ea0ee98';
+//const accountSid = process.env.accountSid;
+//const authToken = process.env.authToken;
 
 
 const client = require('twilio')(accountSid, authToken);
@@ -83,7 +83,6 @@ router.get('/start', function (req, res) {
 });
 
 router.get('/end', function (req, res) {
-
   var endTime = req.query.endTime;
   var totalTime = req.query.totalTime;
   var data = fs.readFileSync('data.txt');
@@ -121,11 +120,11 @@ app.get('/sms', (req, res) => {
 });
 
 app.post('/sms', (req, res) => {
+  //io.emit("end", "HELLO");
   const twiml = new MessagingResponse();
   twiml.message('The Robots are coming! Head for the hills!');
- // res.writeHead(200, {'Content-Type': 'text/xml'});
   console.log(req.body);
-  //res.end(twiml.toString());
+  io.emit("end", "HELLO");
   res.redirect('/index');
 });
 
@@ -147,7 +146,6 @@ console.log('Running at Port 1337');
 
 io.on('connection', function (socket) {
   clientSocket=socket;
-  console.log("Hello word");
   // socket.emit('greeting-from-server', {
   //     greeting: 'Hello Client'
   // });
