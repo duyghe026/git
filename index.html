@@ -340,7 +340,9 @@
 		if (  hours == document.getElementById("hours").value 	
 		   && minutes == document.getElementById("minutes").value
 			&& seconds == document.getElementById("seconds").value ) {
-			alert("hello");
+		        $.get('sms', {}, function (data) {		
+				// send sms warning			
+			});
 		}
 	}, 1000);
 
@@ -367,6 +369,13 @@
 		});
 	});
 </script> -->
+<script>
+	var socket = io();
+        socket.on('end', (msg) => {
+		$("#clickRow").click();
+		//this.shutDown();
+	});
+</script>
 
 
 </html>
