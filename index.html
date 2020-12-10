@@ -297,7 +297,7 @@
 <script>
 	function startTime() {
 		var today = new Date();
-		var h = today.getHours() + 7;
+		var h = today.getHours();
 		var m = today.getMinutes();
 		var s = today.getSeconds();
 		m = checkTime(m);
@@ -329,8 +329,6 @@
 		var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 		var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 		var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-		hours -= 7;
 
 		if( minutes < 10) minutes = "0" + minutes;
 		if( seconds < 10) seconds = "0" + seconds;
