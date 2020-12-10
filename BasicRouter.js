@@ -64,7 +64,7 @@ router.get('/start', function (req, res) {
   var month =  new Date().getMonth() + 1;
   var year =  new Date().getFullYear();
   var date = day + "/" + month + "/" + year;
-  var hours = new Date().getHours();
+  var hours = new Date().getHours() + 7;
   var minutes = new Date().getMinutes();
   var seconds = new Date().getSeconds();
   if (minutes < 10) minutes = "0" + minutes;
