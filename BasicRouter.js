@@ -6,8 +6,8 @@ const path = require('path');
 const router = express.Router();
 var fs = require('fs');
 var prepend = require('prepend');
-const accountSid = process.evn.accountSid;
-const authToken = process.evn.authToken;
+const accountSid = process.env.accountSid;
+const authToken = process.env.authToken;
 
 
 const client = require('twilio')(accountSid, authToken);
