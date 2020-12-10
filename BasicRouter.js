@@ -6,10 +6,10 @@ const path = require('path');
 const router = express.Router();
 var fs = require('fs');
 var prepend = require('prepend');
-const accountSid = 'ACc338df292a27eb23e34c65600bef9abf';
-const authToken = '80f0cfd344488bec7bd92d323ea0ee98';
-//const accountSid = process.env.accountSid;
-//const authToken = process.env.authToken;
+//const accountSid = 'ACc338df292a27eb23e34c65600bef9abf';
+//const authToken = '80f0cfd344488bec7bd92d323ea0ee98';
+const accountSid = process.env.accountSid;
+const authToken = process.env.authToken;
 
 
 const client = require('twilio')(accountSid, authToken);
@@ -22,8 +22,8 @@ var username="admin";
 var password="admin";
 var check =0;
 
-function validateAccount(user,password){
-  if (user === username && password === password){
+function validateAccount(user1,password1){
+  if (user1 === username && password === password1){
     return 1;
   }
   return 0;
@@ -132,7 +132,7 @@ router.post('/setTime', function (req, res) {
  // if(req.body.hours < 10) req.body.hours= "0" +req.body.hours;
  // if(req.body.minutes < 10) req.body.minutes = "0" + req.body.minutes;
  // if(req.body.seconds < 10) req.body.seconds = "0" + req.body.seconds;
- // var str = req.body.hours + ":" + req.body.minutes + ":" + req.body.seconds;
+  var str = req.body.hours + ":" + req.body.minutes + ":" + req.body.seconds;
   fs.writeFileSync('schedual.txt',str);
   res.redirect('/index');
 });
