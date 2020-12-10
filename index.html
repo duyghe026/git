@@ -4,78 +4,64 @@
 <head>
 	<style type="text/css">
 		table {
-			border-spacing: 2;
-			border-collapse: collapse;
-			background: white;
-			border-radius: 10px;
-			overflow: hidden;
-			width: 100%;
-			margin: 0 auto;
-			position: relative;
+		  border-spacing: 2;
+		  border-collapse: collapse;
+		  background: white;
+		  border-radius: 10px;
+		  overflow: hidden;
+		  width: 100%;
+		  margin: 0 auto;
+		  position: relative;
 		}
-
 		table * {
-			position: relative;
+		  position: relative;
 		}
-
-		table td,
-		table th {
-			padding-left: 8px;
+		table td, table th {
+		  padding-left: 8px;
 		}
-
 		table thead tr {
-			height: 60px;
-			background: #36304a;
-			color: white;
+		  height: 60px;
+		  background: #36304a;
+		  color:white;
 		}
-
 		table tbody tr {
-			height: 50px;
+		  height: 50px;
 		}
-
 		table tbody tr:last-child {
-			border: 0;
+		  border: 0;
 		}
-
-		table td,
-		table th {
-			text-align: left;
+		table td, table th {
+		  text-align: left;
 		}
-
-		table td.l,
-		table th.l {
-			text-align: right;
+		table td.l, table th.l {
+		  text-align: right;
 		}
-
-		table td.c,
-		table th.c {
-			text-align: center;
+		table td.c, table th.c {
+		  text-align: center;
 		}
-
-		table td.r,
-		table th.r {
-			text-align: center;
+		table td.r, table th.r {
+		  text-align: center;
 		}
 
 
-		.table100-head th {
-			font-family: OpenSans-Regular;
-			font-size: 18px;
-			color: #fff;
-			line-height: 1.2;
-			font-weight: unset;
+		.table100-head th{
+		  font-family: OpenSans-Regular;
+		  font-size: 18px;
+		  color: #fff;
+		  line-height: 1.2;
+		  font-weight: unset;
 		}
 
 		tbody tr:nth-child(even) {
-			background-color: #f5f5f5;
+		  background-color: #f5f5f5;
 		}
 
 		tbody tr {
-			font-family: OpenSans-Regular;
-			font-size: 20px;
-			color: #808080;
-			line-height: 1.2;
-			font-weight: unset;
+		  font-family: OpenSans-Regular;
+		  font-size: 20px;
+		  color: #808080;
+		  line-height: 1.2;
+		  font-weight: unset;
 		}
 
 		h1 {
@@ -85,9 +71,9 @@
 			font-weight: 800;
 			white-space: nowrap;
 			text-transform: uppercase;
-			color: #36304a;
+			color:#36304a;
 			text-shadow: 0px 2px 3px #555;
-			position: relative;
+    		position: relative;
 		}
 
 		body {
@@ -149,7 +135,7 @@
 
 		/* Set a style for the submit/login button */
 		.form-container .btn {
-			background-color: rgb(16, 50, 51);
+			background-color:rgb(16, 50, 51);
 			border-radius: 10px;
 			color: white;
 			padding: 16px 20px;
@@ -162,57 +148,53 @@
 
 		/* Add a red background color to the cancel button */
 		.form-container .cancel {
-			background-color: rgb(16, 50, 51);
+			background-color:rgb(16, 50, 51);
 		}
 
 		/* Add some hover effects to buttons */
 		.form-container .btn:hover,
 		.open-button:hover {
 			opacity: 1;
-			background-color: black;
+			background-color:black;
 		}
 	</style>
 	<meta charset="utf-8">
 	<title>THÔNG BÁO THỜI GIAN SỬ DỤNG MÁY TÍNH</title>
-	<script src="/socket.io/socket.io.js"></script>
-	<script>
-		var socket = io();
-	  </script>
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://momentjs.com/downloads/moment.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/gh/vast-engineering/jquery-popup-overlay@2/jquery.popupoverlay.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/vast-engineering/jquery-popup-overlay@2/jquery.popupoverlay.min.js"></script>
 </head>
 
 <body onload="startTime()">
 	<h1>THÔNG BÁO THỜI GIAN SỬ DỤNG MÁY TÍNH</h1>
-	<table class="table table-hover" id="myTable">
-		<tr>
-			<th style="background: #555; color: #ddd;">Ngày</th>
-			<th style="background: #555; color: #ddd;">Giờ Bắt Đầu</th>
-			<!-- 				<th onload="startTime()" style="background: #555; color: #ddd;">Giờ Kết Thúc</th> -->
-			<th id="" style="background: #555; color: #ddd;">Thời Gian Sử Dụng</th>
-			<th style="background: #555; color: #ddd;">Trạng Thái</th>
-			<th style="background: #555; color: #ddd;">Chức năng</th>
-			<input id="dataHidden" type="hidden" value="">
-			<input id="end" type="hidden" value="">
-			<input id="total" type="hidden" value="">
-		</tr>
+	<table class="table table-hover" id="myTable" >
+			<tr>
+				<th style="background: #555; color: #ddd;">Ngày</th>
+				<th style="background: #555; color: #ddd;">Giờ Bắt Đầu</th>
+<!-- 				<th onload="startTime()" style="background: #555; color: #ddd;">Giờ Kết Thúc</th> -->
+				<th id="" style="background: #555; color: #ddd;">Thời Gian Sử Dụng</th>
+				<th style="background: #555; color: #ddd;">Trạng Thái</th>
+				<th style="background: #555; color: #ddd;">Chức năng</th>
+				<input id="dataHidden" type="hidden" value="" >
+				<input id="end" type="hidden" value="">
+				<input id="total" type="hidden" value="">
+			</tr>
 
 	</table>
-	<div class="form-popup" id="myForm">
-		<form method="get" class="form-container">
+		<div class="form-popup" id="myForm">
+		<form  method="get" class="form-container">
 			<h1>Lời nhắn</h1>
-			<textarea name="" id="message1" cols="37" rows="10"></textarea>
-			<button type="submit" onclick="notify()" class="btn">Gửi</button>
-			<button type="button" class="btn cancel" onclick="closeForm()">Đóng</button>
+				<textarea name="" id="message1" cols="37" rows="10"></textarea>
+				<button type="submit" onclick="notify()" class="btn">Gửi</button>
+				<button type="button" class="btn cancel" onclick="closeForm()">Đóng</button>
 		</form>
 	</div>
 	<hr>
 	<h2>CÀI ĐẶT THỜI GIAN SỬ DỤNG MÁY TÍNH</h2>
 	<form action="/setTime" method="post">
-		<input size="5" id="hours" name="hours" type="text" placeholder="Hours" value="" /> :
-		<input size="5" id="minutes" name="minutes" type="text" placeholder="Minute" value="" /> :
+		<input size="5" id="hours" name="hours" type="text" placeholder="Hours" value=""/> :
+		<input size="5" id="minutes" name="minutes" type="text" placeholder="Minute" value=""/> :
 		<input size="5" id="seconds" name="seconds" type="text" placeholder="Second" value="" />
 		<th> <input class="button" type="submit" value="Submit" /> </th>
 	</form>
@@ -258,11 +240,11 @@
 		} else param5 = "Đang hoạt động";
 		cell4.innerHTML = param5;
 
-		if (param5.trim() != "Đang hoạt động") {
+		if (param5.trim()!="Đang hoạt động") {
 			var query = '<button type="button" disabled>Nhắc nhở</button>' + '<button type="button"  disabled>Tắt máy</button>';
 		} else {
 
-			var query = '<button type="button"  onclick="openForm()">Nhắc nhở</button>' + '<button type="button" id="clickRow" onclick="shutDown()">Tắt máy</button>';
+			var query = '<button type="button"  onclick="openForm()">Nhắc nhở</button>' + '<button type="button" id="#clickRow" onclick="shutDown()">Tắt máy</button>';
 
 		}
 		cell5.innerHTML = query;
@@ -274,32 +256,34 @@
 		}
 	});
 
-
-	function shutDown() {
+	
+	function shutDown(){
 		$.get('shutDown', {}, function (data) {
 			alert("Completed!");
 		});
 		var end = document.getElementById("end").value;
 		var total = document.getElementById("total").value;
 		var rq = 'end?endTime=' + end.trim() + '&totalTime=' + total.trim();
-		$.get(rq, {}, function (data) {
+		$.get(rq, {}, function (data)
+		{
 			location.reload();
 		});
+		
 	};
 
-	function notify() {
-		var message = document.getElementById("message1").value;
-		$.post('notify', { notifyStr: message }, function (data) {
+	function notify(){
+		var message=document.getElementById("message1").value;
+		$.post('notify', {notifyStr: message}, function (data) {
 			alert(message);
 			document.getElementById("myForm").style.display = "none";
 		});
 	}
 
-
+	
 
 </script>
 <script>
-	$.get('dataSchedual', {}, function (data) {
+		$.get('dataSchedual', {}, function (data) {
 		// for (i in data) {
 		// 	var arr = data[i].toString().split(" ");
 		// 	insertRowTable(arr[0], arr[1], arr[2], arr[3], arr[4]);
@@ -313,7 +297,7 @@
 <script>
 	function startTime() {
 		var today = new Date();
-		var h = today.getHours();
+		var h = today.getHours()+7;
 		var m = today.getMinutes();
 		var s = today.getSeconds();
 		m = checkTime(m);
@@ -346,20 +330,18 @@
 		var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 		var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
+
+		if( minutes < 10) minutes = "0" + minutes;
+		if( seconds < 10) seconds = "0" + seconds;
+		console.log(seconds);
+		console.log(document.getElementById("seconds").value);
+		document.getElementById("totalTime").innerHTML = hours + "h "+ minutes + "m " + seconds + "s ";
+		document.getElementById("total").value =  hours + "h:"+ minutes + "m:" + seconds + "s";
 		
-		if (hours < 10) hours = "0" + hours;
-		if (minutes < 10) minutes = "0" + minutes;
-		if (seconds < 10) seconds = "0" + seconds;
-		document.getElementById("totalTime").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
-		document.getElementById("total").value = hours + "h:" + minutes + "m:" + seconds + "s";
-		var cp1 = parseInt(hours*60+minutes*60+ seconds);
-		var cp2= parseInt(document.getElementById("hours").value*60+document.getElementById("minutes").value*60+document.getElementById("seconds").value);
-		console.log(cp1 + " " + cp2);
-		//console.log( document.getElementById("hours").value + " " + document.getElementById("minutes").value + " " + seconds == document.getElementById("seconds").value));
-		if (cp1==cp2) {
-			$.get('sms', {}, function (data) {		
-				// send sms warning			
-			});
+		if (  hours == document.getElementById("hours").value 	
+		   && minutes === document.getElementById("minutes").value
+			&& seconds === document.getElementById("seconds").value ) {
+			document.getElementById("clickRow").click();
 		}
 	}, 1000);
 
@@ -386,13 +368,6 @@
 		});
 	});
 </script> -->
-
-<script>
-    socket.on('end', (msg) => {
-		$("#clickRow").click();
-		//this.shutDown();
-	});
-</script>
 
 
 </html>
