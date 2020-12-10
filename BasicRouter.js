@@ -6,8 +6,9 @@ const path = require('path');
 const router = express.Router();
 var fs = require('fs');
 var prepend = require('prepend');
-const accountSid = process.env.accountSid;
-const authToken =  process.env.authToken;
+const accountSid = 'ACc338df292a27eb23e34c65600bef9abf';
+const authToken = '099b6283864bd9f3a16b4a48aec7e449';
+
 
 const client = require('twilio')(accountSid, authToken);
 const bodyParser = require('body-parser');
@@ -114,7 +115,7 @@ app.get('/sms', (req, res) => {
   client.messages
   .create({body: '[CẢNH BÁO] Máy tính sử dụng đã vượt quá thời gian quy định!', from: '+12543646231', to: '+84588819322'})
   .then(message => console.log(message.sid));
- // res.redirect('/index');
+  res.redirect('/index');
 });
 
 app.post('/sms', (req, res) => {
@@ -122,7 +123,8 @@ app.post('/sms', (req, res) => {
   twiml.message('The Robots are coming! Head for the hills!');
   res.writeHead(200, {'Content-Type': 'text/xml'});
   console.log(rq.body);
-  res.end(twiml.toString());
+  //res.end(twiml.toString());
+  res.redirect('/index');
 });
 
 router.post('/setTime', function (req, res) {
