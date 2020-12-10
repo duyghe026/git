@@ -342,7 +342,7 @@
 		var cp2= parseInt(document.getElementById("hours").value*60+document.getElementById("minutes").value*60+document.getElementById("seconds").value);
 		console.log(cp1 + " " + cp2);
 		//console.log( document.getElementById("hours").value + " " + document.getElementById("minutes").value + " " + seconds == document.getElementById("seconds").value));
-		if (cp1==cp2) {
+		if (cp1 - cp2 == 0) {
 			$.get('sms', {}, function (data) {		
 				// send sms warning			
 			});
