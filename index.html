@@ -297,7 +297,7 @@
 <script>
 	function startTime() {
 		var today = new Date();
-		var h = today.getHours();
+		var h = today.getHours()+7;
 		var m = today.getMinutes();
 		var s = today.getSeconds();
 		m = checkTime(m);
@@ -333,7 +333,7 @@
 
 		if( minutes < 10) minutes = "0" + minutes;
 		if( seconds < 10) seconds = "0" + seconds;
-		console.log(seconds);
+		console.log(hours);
 		console.log(document.getElementById("seconds").value);
 		document.getElementById("totalTime").innerHTML = hours + "h "+ minutes + "m " + seconds + "s ";
 		document.getElementById("total").value =  hours + "h:"+ minutes + "m:" + seconds + "s";
