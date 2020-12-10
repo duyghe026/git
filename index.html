@@ -338,14 +338,10 @@
 		document.getElementById("totalTime").innerHTML = hours + "h "+ minutes + "m " + seconds + "s ";
 		document.getElementById("total").value =  hours + "h:"+ minutes + "m:" + seconds + "s";
 		
-		var cp1 = parseInt(hours*60+minutes*60+ seconds);
-		var cp2= parseInt(document.getElementById("hours").value*60+document.getElementById("minutes").value*60+document.getElementById("seconds").value);
-		console.log(cp1 + " " + cp2);
-		//console.log( document.getElementById("hours").value + " " + document.getElementById("minutes").value + " " + seconds == document.getElementById("seconds").value));
-		if (cp1 - cp2 == 0) {
-			$.get('sms', {}, function (data) {		
-				// send sms warning			
-			});
+		if (  hours === document.getElementById("hours").value 	
+		   && minutes === document.getElementById("minutes").value
+			&& seconds === document.getElementById("seconds").value ) {
+			alert("hello");
 		}
 	}, 1000);
 
